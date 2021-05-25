@@ -1,4 +1,4 @@
-package com.jw.jwvisit.pojo;
+package com.jw.jwvisit.model;
 
 import java.util.Date;
 
@@ -13,6 +13,15 @@ public class visitinfo {
     private String visitorpnum;
     private String identitynum;
     private String platenum;
+    private String imgurl;
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
+    }
 
     public int getId() {
         return id;

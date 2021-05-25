@@ -1,26 +1,35 @@
 package com.jw.jwvisit.service;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.Map;
 import java.util.UUID;
 @Service
 public class UploadService {
 
-    public int uploadInfo(String visitinfo, MultipartFile file, String uploadDir) {
+    public JSONObject uploadInfo(String visitinfo, MultipartFile file, String uploadDir) {
+        JSONObject object = new JSONObject();
         try {
             //图片路径
             String imgUrl = null;
             //上传
-            String filename = upload(file, uploadDir, file.getOriginalFilename());
-            if (filename.equals("") || filename==null) {
-                imgUrl = new File(uploadDir).getName() + "/" + filename;
+            String imgurl = upload(file, uploadDir, file.getOriginalFilename());
+            if (imgurl.equals("") || imgurl==null) {
+                imgUrl = new File(uploadDir).getName() + "/" + imgurl;
             }
-            return 0;
+
+            object.put("messageCode", "1");
+            object.put("messageCont", "信息上传成功!");
+            object.put("imgUrl", imgurl);
         } catch (Exception e) {
+            object.put("messageCode", "0");
+            object.put("messageCont", "信息上传失败!");
             e.printStackTrace();
-            return -1;
+        }finally {
+            return object;
         }
     }
 
@@ -34,6 +43,6 @@ public class UploadService {
         }
         // 保存文件
         file.transferTo(dest);
-        return dest.getName();
+        return realPath;
     }
 }
