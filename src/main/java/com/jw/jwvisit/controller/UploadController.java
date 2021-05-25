@@ -1,7 +1,9 @@
 package com.jw.jwvisit.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.jw.jwvisit.service.UploadService;
+import com.jw.jwvisit.util.BASE64DecodedMultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,9 @@ public class UploadController {
     UploadService uploadService;
     @RequestMapping("/uploadinfo")
     @ResponseBody
-    public String uploadInfo(@RequestParam("visitinfo")String visitinfo, @RequestParam("file")MultipartFile file) {
+    public String uploadInfo(@RequestParam("visitinfo")String visitinfo) {
+        JSONObject jsonObj = JSONObject.parseObject(visitinfo);
+        MultipartFile file = BASE64DecodedMultipartFile.base64ToMultipart(jsonObj.get("file").toString());
         int result = uploadService.uploadInfo(visitinfo,file,"/Users/macpro/Desktop/imgs");
         if (result > -1) {
             return "true";

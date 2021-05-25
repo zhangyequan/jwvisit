@@ -31,18 +31,10 @@
     </form>
 
     <script>
+        let tmp1;//数据文件存这里
         function submitForm() {
             debugger;
             let formData = new FormData(); //将需要提交的参数封装起来
-            // formData.append("visitedname", $("#visitedname").val());
-            // formData.append("visitedpnum", $("#visitedpnum").val());
-            // formData.append("visitedevent", $("#visitedevent").val());
-            // formData.append("visittime", $("#visittime").val());
-            // formData.append("lefttime", $("#lefttime").val());
-            // formData.append("visitorname", $("#visitorname").val());
-            // formData.append("visitorpnum", $("#visitorpnum").val());
-            // formData.append("identitynum", $("#identitynum").val());
-            // formData.append("platenum", $("#platenum").val());
             let visitinfo = {};
             visitinfo["visitedname"] = $("#visitedname").val();
             visitinfo["visitedpnum"] = $("#visitedpnum").val();
@@ -53,8 +45,9 @@
             visitinfo["visitorpnum"] = $("#visitorpnum").val();
             visitinfo["identitynum"] = $("#identitynum").val();
             visitinfo["platenum"] = $("#platenum").val();
+            visitinfo["file"] = tmp1;
             visitinfo = JSON.stringify(visitinfo);
-            formData.append("file", $("#file")[0].files[0]);
+
             formData.append("visitinfo",visitinfo)
             $.ajax({
                 url : '/uploadinfo',
@@ -80,7 +73,9 @@
             if (file.files && file.files[0]) {
                 let reader = new FileReader();
                 reader.onload = function(evt) {
+                    debugger;
                     prevDiv.innerHTML = '<img style="width: 100px;height: 100px;" src="' + evt.target.result + '" />';
+                    tmp1 = evt.target.result;
                 }
                 reader.readAsDataURL(file.files[0]);
             } else {
