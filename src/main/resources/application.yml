@@ -4,3 +4,6 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.jw.jwvisit.model

@@ -3,7 +3,9 @@ package com.jw.jwvisit.service.impl;
 import com.jw.jwvisit.dao.VisitDao;
 import com.jw.jwvisit.model.visitinfo;
 import com.jw.jwvisit.service.VisitService;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +17,6 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public void createVisit(visitinfo visitinfo) {
 
-        visitDao.create(visitinfo);
+        visitDao.createvisit(visitinfo);
     }
 }
